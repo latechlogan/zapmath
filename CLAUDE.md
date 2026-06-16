@@ -72,6 +72,31 @@ Keep this structure. Don't create new top-level folders without a clear reason.
 
 ---
 
+## Data Shapes & Key APIs
+
+### Core types
+
+// GameConfig — created on HomePage, passed to GamePage via router state
+{ playerCount: 1 | 2, mode: 'firstToX' | 'mostInX', target: number }
+
+// Question — produced by generateQuestion()
+{ operandA: number, operandB: number, answer: number }
+
+// Scores
+{ 1: number, 2: number }
+
+### useGameState(config) — public return shape
+State:    currentQuestion, scores, roundCount, activePlayer, buzzedIn, gameOver, winner
+Actions:  submitAnswer(input), buzzIn(player), resetGame()
+
+### Component props (brief)
+QuestionDisplay   { question }
+ScoreBoard        { scores, playerCount, roundCount, config }
+AnswerInput       { onSubmit }
+GameOver          { winner, scores, onPlayAgain }
+
+---
+
 ## Phasing Strategy — Important
 
 The project is built in phases. **Experimental features come last.**
