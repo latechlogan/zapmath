@@ -12,7 +12,7 @@ This is a personal learning project — not commercial. Functional and clean bea
 
 - Addition facts only; operands 0–12
 - 1 or 2 players (camera field-of-view limits 2-player max)
-- Two win conditions: **first to X correct**, or **most correct in X rounds**
+- Win condition: **first to X correct** (`firstToX`). A `mostInX` mode (most correct in X rounds, or within a timeframe) is **parked for a later phase** — see Data Shapes note
 - Pure frontend — no backend, no accounts, no data persistence
 - Responsive: phone, tablet, desktop
 
@@ -77,7 +77,9 @@ Keep this structure. Don't create new top-level folders without a clear reason.
 ### Core types
 
 // GameConfig — created on HomePage, passed to GamePage via router state
-{ playerCount: 1 | 2, mode: 'firstToX' | 'mostInX', target: number }
+// `mode` is a single-member union for now; `mostInX` is parked for later.
+// `target` = number of correct answers needed to win.
+{ playerCount: 1 | 2, mode: 'firstToX', target: number }
 
 // Question — produced by generateQuestion()
 { operandA: number, operandB: number, answer: number }
@@ -86,6 +88,7 @@ Keep this structure. Don't create new top-level folders without a clear reason.
 { 1: number, 2: number }
 
 ### useGameState(config) — public return shape
+// roundCount is for scoreboard display only — not a win condition under firstToX.
 State:    currentQuestion, scores, roundCount, activePlayer, buzzedIn, gameOver, winner
 Actions:  submitAnswer(input), buzzIn(player), resetGame()
 
